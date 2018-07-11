@@ -170,6 +170,29 @@ header h1 {
   background: #17BEBB;
 }
 
+.cd-timeline__img.cd-timeline__img--census {
+  background: #c03b44;
+}
+
+table {
+  margin-top: 1em;
+  color: #333; /* Lighten up font color */
+  border-collapse:
+          collapse; border-spacing: 0;
+}
+
+td, th { border: 1px solid #CCC; padding: 10px 4px; }
+
+th {
+  background: #d7e4ed;
+  font-weight: bold;
+}
+
+td {
+  background: #e9f0f5;
+  text-align: center;
+}
+
 @media only screen and (min-width: 1170px) {
   .cd-timeline__img {
     width: 60px;
