@@ -42,6 +42,9 @@ Patterns - reusable parts of our design
   .cd-is-hidden {
     visibility: hidden;
   }
+  .cd-is-display-none {
+    display: none;
+  }
 }
 
 /* -------------------------------- 

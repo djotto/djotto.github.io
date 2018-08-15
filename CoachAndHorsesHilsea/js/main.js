@@ -68,4 +68,68 @@
 		});
 		scrolling = false;
 	};
+
+	// Flip display:none on an element on or off.
+    function toggleClass(element, className) {
+        if (element.classList.contains(className)) {
+            element.classList.remove(className);
+        } else {
+            element.classList.add(className);
+        }
+    };
+
+    // Flip cd-is-display-none on all parent elements of elements with class className.
+    function toggleAllDisplayNone(className) {
+        elements = document.getElementsByClassName(className);
+        for (var i = 0; i < elements.length; i++) {
+            toggleClass(elements[i].parentElement, 'cd-is-display-none');
+        }
+    }
+
+    document.getElementById('toggleNewspapers').addEventListener('click', function() {
+        toggleAllDisplayNone('cd-timeline__img--newspaper');
+        if (this.innerText == 'Hide Newspapers') {
+            this.innerText = "Show Newspapers";
+        } else {
+            this.innerText = "Hide Newspapers";
+        }
+        checkTimelineScroll();
+    });
+    document.getElementById('toggleBooks').addEventListener('click', function() {
+        toggleAllDisplayNone('cd-timeline__img--book');
+        if (this.innerText == 'Hide Books') {
+            this.innerText = "Show Books";
+        } else {
+            this.innerText = "Hide Books";
+        }
+        checkTimelineScroll();
+    });
+    document.getElementById('toggleComments').addEventListener('click', function() {
+        toggleAllDisplayNone('cd-timeline__img--comment');
+        if (this.innerText == 'Hide Comments') {
+            this.innerText = "Show Comments";
+        } else {
+            this.innerText = "Hide Comments";
+        }
+        checkTimelineScroll();
+    });
+    document.getElementById('toggleMaps').addEventListener('click', function() {
+        toggleAllDisplayNone('cd-timeline__img--location');
+        if (this.innerText == 'Hide Maps') {
+            this.innerText = "Show Maps";
+        } else {
+            this.innerText = "Hide Maps";
+        }
+        checkTimelineScroll();
+    });
+    document.getElementById('toggleCensuses').addEventListener('click', function() {
+        toggleAllDisplayNone('cd-timeline__img--census');
+        if (this.innerText == 'Hide Censuses') {
+            this.innerText = "Show Censuses";
+        } else {
+            this.innerText = "Hide Censuses";
+        }
+        checkTimelineScroll();
+    });
+
 })();
