@@ -76,7 +76,7 @@
         scrolling = false;
     }
 
-    // Functions below this point should be genericized, so we can have more than one timeline per page.
+    // Functions below this point deal with hiding classes of timeline content.
 
     VerticalTimeline.prototype.toggle = function(name, button) {
         Array.from(this.blocks).forEach(function(block) {
