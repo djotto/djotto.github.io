@@ -78,92 +78,83 @@
 
     // Functions below this point should be genericized, so we can have more than one timeline per page.
 
-    // Whatever str this's innerText currently is, flip to the other str.
-    function toggleInnerText(element, str1, str2) {
-        if (element.innerText == str1) {
-            element.innerText = str2;
-        } else {
-            element.innerText = str1;
-        }
-    }
-
-    VerticalTimeline.prototype.toggleElements = function(className) {
-        Array.from(document.getElementsByClassName(className)).forEach(function (element) {
-             if (element.parentElement.classList.contains('cd-is-display-none')) {
-                 element.parentElement.classList.remove('cd-is-display-none');
-             } else {
-                 element.parentElement.classList.add('cd-is-display-none');
-             }
+    VerticalTimeline.prototype.toggle = function(name, button) {
+        Array.from(this.blocks).forEach(function(block) {
+            if (block.firstElementChild.classList.contains('cd-timeline__img--' + name)) {
+                // Toggle display:none class.
+                if (block.classList.contains('cd-is-display-none')) {
+                    block.classList.remove('cd-is-display-none');
+                } else {
+                    block.classList.add('cd-is-display-none');
+                }
             }
-        );
-	};
+        });
+        // Toggle Show/Hide on the button that was pressed.
+        console.log(button.innerText);
+        if (button.innerText.includes('Show')) {
+            button.innerText = button.innerText.replace('Show', 'Hide')
+        } else {
+            button.innerText = button.innerText.replace('Hide', 'Show')
+        }
+        checkTimelineScroll();
+    };
 
     Array.from(document.getElementsByClassName('toggleBooks')).forEach(
-        function(element) {
-            element.addEventListener('click', function () {
+        function(button) {
+            button.addEventListener('click', function () {
                 verticalTimelinesArray.forEach(function (timeline) {
-                    if (timeline.element.contains(element)) {
-                        timeline.toggleElements('cd-timeline__img--book');
+                    if (timeline.element.contains(button)) {
+                        timeline.toggle('book', button);
                     }
                 });
-                toggleInnerText(element, "Show Books", "Hide Books");
-                checkTimelineScroll();
             })
         }
     );
 
     Array.from(document.getElementsByClassName('toggleCensuses')).forEach(
-        function(element) {
-            element.addEventListener('click', function () {
+        function(button) {
+            button.addEventListener('click', function () {
                 verticalTimelinesArray.forEach(function (timeline) {
-                    if (timeline.element.contains(element)) {
-                        timeline.toggleElements('cd-timeline__img--census');
+                    if (timeline.element.contains(button)) {
+                        timeline.toggle('census', button);
                     }
                 });
-                toggleInnerText(element, "Show Censuses", "Hide Censuses");
-                checkTimelineScroll();
             })
         }
     );
 
     Array.from(document.getElementsByClassName('toggleComments')).forEach(
-        function(element) {
-            element.addEventListener('click', function () {
+        function(button) {
+            button.addEventListener('click', function () {
                 verticalTimelinesArray.forEach(function (timeline) {
-                    if (timeline.element.contains(element)) {
-                        timeline.toggleElements('cd-timeline__img--comment');
+                    if (timeline.element.contains(button)) {
+                        timeline.toggle('comment', button);
                     }
                 });
-                toggleInnerText(element, "Show Comments", "Hide Comments");
-                checkTimelineScroll();
             })
         }
     );
 
     Array.from(document.getElementsByClassName('toggleMaps')).forEach(
-        function(element) {
-            element.addEventListener('click', function () {
+        function(button) {
+            button.addEventListener('click', function () {
                 verticalTimelinesArray.forEach(function (timeline) {
-                    if (timeline.element.contains(element)) {
-                        timeline.toggleElements('cd-timeline__img--location');
+                    if (timeline.element.contains(button)) {
+                        timeline.toggle('location', button);
                     }
                 });
-                toggleInnerText(element, "Show Maps", "Hide Maps");
-                checkTimelineScroll();
             })
         }
     );
 
     Array.from(document.getElementsByClassName('toggleNewspapers')).forEach(
-        function(element) {
-            element.addEventListener('click', function () {
+        function(button) {
+            button.addEventListener('click', function () {
                 verticalTimelinesArray.forEach(function (timeline) {
-                    if (timeline.element.contains(element)) {
-                        timeline.toggleElements('cd-timeline__img--newspaper');
+                    if (timeline.element.contains(button)) {
+                        timeline.toggle('newspaper', button);
                     }
                 });
-                toggleInnerText(element, "Show Newspapers", "Hide Newspapers");
-                checkTimelineScroll();
             })
         }
     );
