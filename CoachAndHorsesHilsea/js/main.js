@@ -5,6 +5,13 @@
         this.blocks = this.element.getElementsByClassName("js-cd-block");
         this.images = this.element.getElementsByClassName("js-cd-img");
         this.contents = this.element.getElementsByClassName("js-cd-content");
+
+        this.books = this.element.getElementsByClassName("cd-timeline__img--book");
+        this.censuses = this.element.getElementsByClassName("cd-timeline__img--census");
+        this.comments = this.element.getElementsByClassName("cd-timeline__img--comment");
+        this.maps = this.element.getElementsByClassName("cd-timeline__img--location");
+        this.newspapers = this.element.getElementsByClassName("cd-timeline__img--newspaper");
+
         this.offset = 0.8;
         this.hideBlocks();
     };
@@ -67,26 +74,9 @@
             timeline.showBlocks();
         });
         scrolling = false;
-    };
+    }
 
     // Functions below this point should be genericized, so we can have more than one timeline per page.
-
-    // Flip display:none on an element on or off.
-    function toggleClass(element, className) {
-        if (element.classList.contains(className)) {
-            element.classList.remove(className);
-        } else {
-            element.classList.add(className);
-        }
-    };
-
-    // Flip cd-is-display-none on all parent elements of elements with class className.
-    function toggleAllDisplayNone(className) {
-        elements = document.getElementsByClassName(className);
-        for (var i = 0; i < elements.length; i++) {
-            toggleClass(elements[i].parentElement, 'cd-is-display-none');
-        }
-    }
 
     // Whatever str this's innerText currently is, flip to the other str.
     function toggleInnerText(element, str1, str2) {
@@ -97,30 +87,84 @@
         }
     }
 
-    document.getElementById('toggleNewspapers').addEventListener('click', function() {
-        toggleAllDisplayNone('cd-timeline__img--newspaper');
-        toggleInnerText(this, 'Hide Newspapers', 'Show Newspapers');
-        checkTimelineScroll();
-    });
-    document.getElementById('toggleBooks').addEventListener('click', function() {
-        toggleAllDisplayNone('cd-timeline__img--book');
-        toggleInnerText(this, 'Hide Books', 'Show Books');
-        checkTimelineScroll();
-    });
-    document.getElementById('toggleComments').addEventListener('click', function() {
-        toggleAllDisplayNone('cd-timeline__img--comment');
-        toggleInnerText(this, 'Hide Comments', 'Show Comments');
-        checkTimelineScroll();
-    });
-    document.getElementById('toggleMaps').addEventListener('click', function() {
-        toggleAllDisplayNone('cd-timeline__img--location');
-        toggleInnerText(this, 'Hide Maps', 'Show Maps');
-        checkTimelineScroll();
-    });
-    document.getElementById('toggleCensuses').addEventListener('click', function() {
-        toggleAllDisplayNone('cd-timeline__img--census');
-        toggleInnerText(this, 'Hide Censuses', 'Show Censuses');
-        checkTimelineScroll();
-    });
+    VerticalTimeline.prototype.toggleElements = function(className) {
+        Array.from(document.getElementsByClassName(className)).forEach(function (element) {
+             if (element.parentElement.classList.contains('cd-is-display-none')) {
+                 element.parentElement.classList.remove('cd-is-display-none');
+             } else {
+                 element.parentElement.classList.add('cd-is-display-none');
+             }
+            }
+        );
+	};
 
+    Array.from(document.getElementsByClassName('toggleBooks')).forEach(
+        function(element) {
+            element.addEventListener('click', function () {
+                verticalTimelinesArray.forEach(function (timeline) {
+                    if (timeline.element.contains(element)) {
+                        timeline.toggleElements('cd-timeline__img--book');
+                    }
+                });
+                toggleInnerText(element, "Show Books", "Hide Books");
+                checkTimelineScroll();
+            })
+        }
+    );
+
+    Array.from(document.getElementsByClassName('toggleCensuses')).forEach(
+        function(element) {
+            element.addEventListener('click', function () {
+                verticalTimelinesArray.forEach(function (timeline) {
+                    if (timeline.element.contains(element)) {
+                        timeline.toggleElements('cd-timeline__img--census');
+                    }
+                });
+                toggleInnerText(element, "Show Censuses", "Hide Censuses");
+                checkTimelineScroll();
+            })
+        }
+    );
+
+    Array.from(document.getElementsByClassName('toggleComments')).forEach(
+        function(element) {
+            element.addEventListener('click', function () {
+                verticalTimelinesArray.forEach(function (timeline) {
+                    if (timeline.element.contains(element)) {
+                        timeline.toggleElements('cd-timeline__img--comment');
+                    }
+                });
+                toggleInnerText(element, "Show Comments", "Hide Comments");
+                checkTimelineScroll();
+            })
+        }
+    );
+
+    Array.from(document.getElementsByClassName('toggleMaps')).forEach(
+        function(element) {
+            element.addEventListener('click', function () {
+                verticalTimelinesArray.forEach(function (timeline) {
+                    if (timeline.element.contains(element)) {
+                        timeline.toggleElements('cd-timeline__img--location');
+                    }
+                });
+                toggleInnerText(element, "Show Maps", "Hide Maps");
+                checkTimelineScroll();
+            })
+        }
+    );
+
+    Array.from(document.getElementsByClassName('toggleNewspapers')).forEach(
+        function(element) {
+            element.addEventListener('click', function () {
+                verticalTimelinesArray.forEach(function (timeline) {
+                    if (timeline.element.contains(element)) {
+                        timeline.toggleElements('cd-timeline__img--newspaper');
+                    }
+                });
+                toggleInnerText(element, "Show Newspapers", "Hide Newspapers");
+                checkTimelineScroll();
+            })
+        }
+    );
 })();
