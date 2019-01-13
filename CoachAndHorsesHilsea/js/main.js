@@ -158,4 +158,16 @@
             })
         }
     );
+
+    Array.from(document.getElementsByClassName('toggleWills')).forEach(
+        function(button) {
+            button.addEventListener('click', function () {
+                verticalTimelinesArray.forEach(function (timeline) {
+                    if (timeline.element.contains(button)) {
+                        timeline.toggle('will', button);
+                    }
+                });
+            })
+        }
+    );
 })();
